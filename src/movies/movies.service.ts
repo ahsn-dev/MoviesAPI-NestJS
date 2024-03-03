@@ -7,6 +7,15 @@ import { Movie } from './entities/movie.entity';
 export class MoviesService {
   private movies: Movie[] = [];
 
+  createMovie(createMovieData: CreateMovieDto) {
+    const newMovie = {
+      id: this.movies.length + 1,
+      ...createMovieData,
+    };
+    this.movies.push(newMovie);
+    return newMovie;
+  }
+
   getAllMovies(): Movie[] {
     return this.movies;
   }
@@ -19,15 +28,6 @@ export class MoviesService {
     return movie;
   }
 
-  createMovie(createMovieData: CreateMovieDto) {
-    const newMovie = {
-      id: this.movies.length + 1,
-      ...createMovieData,
-    };
-    this.movies.push(newMovie);
-    return newMovie;
-  }
-
   updateMovie(id: number, updateMovieData: UpdateMovieDto) {
     const movie = this.getMovie(id);
     this.deleteMovie(id);
@@ -38,4 +38,6 @@ export class MoviesService {
     this.getMovie(id);
     this.movies = this.movies.filter((movie) => movie.id !== id);
   }
+
+  // search() {}
 }
